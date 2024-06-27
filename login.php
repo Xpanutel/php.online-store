@@ -1,0 +1,78 @@
+<?php
+session_start();
+if (!isset($_SESSION)) {
+    session_regenerate_id(true);
+    $_SESSION['auth'] = false;
+}
+$_SESSION['auth'] = false;
+if($_SESSION['auth'] === false) { ?>
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Guardians of Dreams Shop | Authorization</title>
+		<style>
+	  	html, body {
+	    	height: 100%;
+	    	margin: 0;
+	    	padding: 0;
+	  	}
+
+	  	body {
+	    	display: flex;
+	    	flex-direction: column;
+	  	}
+
+	  	.content {
+	    	flex: 1;
+	    	padding: 20px;
+	    	background: #f7f7f7;
+	    	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	    	border-radius: 5px;
+	    	text-align: center;
+	  	}
+	  </style>
+	</head>
+	<body>
+		<div class="content">
+			<form action="" method="post">
+				<input type="text" name="login" placeholder="Your login or your email">
+				<input type="password" name="pass" placeholder="Your password">
+				<input type="hidden" name="token" value="<?php echo md5(uniqid(rand(), true)); ?>">
+			  <input type="submit" value="Sign in">
+			</form>
+		</div>
+	</body>
+	</html>
+	<?php include	'db_config.php';
+	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$login = $_POST['login'];
+		$pass = $_POST['pass'];
+
+		$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email = ?");
+   	$stmt->bind_param('ss', $login, $login);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+
+		if($row) {
+			if($pass == $row['password']) {
+				$_SESSION['login'] = $login;
+				$_SESSION['auth'] = true;
+				header('location: profile.php');
+				$stmt->close();
+				$link->close();
+				exit;
+			} else {
+				echo "Ошибка с паролем!";
+			}
+		} else {
+			echo "Пользователь с такими данными не найден!";
+		}
+	}
+} else {
+	header('location: profile.php');
+	exit;
+}
+?>

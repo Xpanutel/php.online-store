@@ -1,0 +1,41 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.main-header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.logo img {
+    max-width: 150px;
+}
+
+.main-menu {
+    float: right;
+}
+
+.main-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-menu li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.main-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.main-menu a:hover {
+    color: #ffcc00;
+}

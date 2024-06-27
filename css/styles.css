@@ -1,0 +1,44 @@
+form {
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background: #f7f7f7;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+  background: #43A047;
+}
+
+input[type="hidden"] {
+  display: none;
+}
+
