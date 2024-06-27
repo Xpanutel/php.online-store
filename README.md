@@ -1,6 +1,6 @@
-# Добро пожаловать в проект Guardians of Dreams Shop! 
+# Welcome to the Guardians of Dreams Shop!
 
-## Стек технологий
+## Technology Stack
 
 ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
@@ -8,110 +8,110 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 
-## Требования к проекту
-Проект включает в себя следующие компоненты:
+## Project Requirements
+The project includes the following components:
 
-- Страница для отображения всех товаров из базы данных.
-- Система регистрации пользователей.
-- Система авторизации пользователей.
-- Профиль пользователя, доступный после регистрации.
-- Возможность добавления и удаления товаров.
+- A page to display all products from the database.
+- User registration system.
+- User authorization system.
+- User profile available after registration.
+- Ability to add and delete products.
 
-## Структура проекта
+## Project structure
 
-Проект организован следующим образом:
+The project is organized as follows:
 ```
 | -- /components
-|  -- header.php
-|  -- footer.php
+| -- header.php
+| -- footer.php
 ```
-Здесь находятся общие компоненты интерфейса сайта, такие как шапка и подвал. 
-```Header.php``` содержит код для верхней части страницы, включая навигационное меню и логотип. 
-```Footer.php``` содержит код для нижней части страницы.
+This is where the common components of the site interface are located, such as the header and footer. 
+```Header.php``` contains the code for the top of the page, including the navigation menu and logo. 
+````Footer.php``` contains the code for the bottom of the page.
 
 ```
 |-- /css
-|   -- style.css
-|   -- footer.css
-|   -- header.css
+| -- style.css
+| -- footer.css
+|| -- header.css
 ```
-Здесь хранятся каскадные таблицы стилей (CSS), которые определяют внешний вид элементов на странице. 
-```Style.css``` обычно содержит общие стили для всего сайта. 
-```Footer.css и Header.css``` используются для стилизации соответствующих компонентов.
+Cascading Style Sheets (CSS) are stored here, which define the appearance of elements on the page. 
+```Style.css``` usually contains common styles for the entire site. 
+```Footer.css and Header.css``` are used to style the respective components.
 
 ```
 |-- /img
-|   -- logo.png
+| -- logo.png
 ```
-Здесь хранятся изображения, используемые на сайте. 
-```Logo.png``` - это логотип интернет - магазина.
+Images used on the site are stored here. 
+```` ```Logo.png``` is the logo of the online store.
 
 ```
 |-- /js
-|   -- scripts.js
+|-- scripts.js
 ```
-Здесь хранится JavaScript-код, который взаимодействует с пользователем или выполняет другие динамические задачи на странице. 
-```Scripts.js``` может включать в себя различные скрипты, такие как обработка форм, слайдеры изображений и т.д.
+This stores JavaScript code that interacts with the user or performs other dynamic tasks on the page. 
+``Scripts.js`` can include various scripts such as form processing, image sliders, etc.
 
 ```
 |-- /sql
-|  -- users.sql
-|  -- products.sql
-|  -- -- store.sql
+| -- users.sql
+| -- products.sql
+|-- -- store.sql
 ```
-Здесь находятся SQL-скрипты, которые используются для создания и управления базой данных. 
-```Users.sql``` - содержит определения таблицы пользователей. 
-```Products.sql``` - содержит таблицу продуктов
-```Store.sql``` - содержит таблицу магазина.
+Here are the SQL scripts that are used to create and manage the database. 
+```Users.sql``` - contains the user table definitions. 
+````Products.sql``` - contains the products table
+``` ``Store.sql``` - contains the store table.
 
 ```
 |-- index.php
 ```
-Это главная страница сайта, которая обычно является точкой входа для посетителей. Здесь представлена информация продуктах.
+This is the main page of the site, which is usually the entry point for visitors. This is where product information is presented.
 
 ```
 |-- cart.php
 ```
-Это страница корзины покупок, где пользователь может просматривать выбранные товары и оформлять заказ.
+This is the shopping cart page where the user can view the selected products and place an order.
 
 ```
 |-- login.php
 ```
-Это страница входа, где пользователь может ввести свои учетные данные для доступа к защищенным разделам сайта.
+This is the login page where the user can enter their credentials to access secure areas of the site.
 
 ```
 |-- register.php
 ```
-Это страница регистрации, где новые пользователи могут создать аккаунт на сайте.
+This is the registration page where new users can create an account on the site.
 
 ```
 |-- profile.php
 ```
-Это страница профиля пользователя, где он может управлять своими данными, настройками и заказами.
+This is the user's profile page where they can manage their data, settings and orders.
 
 ```
 |-- db_config.php
 ```
-Это конфигурационный файл базы данных, который содержит информацию, необходимую для подключения к базе данных, такую как имя хоста, имя базы данных, имя пользователя и пароль.
+This is the database configuration file which contains the information needed to connect to the database such as hostname, database name, username and password.
 
 ```
 |-- .htaccess
 ```
-Это файл конфигурации Apache, который используется для настройки сервера и управления URL-адресами.
+This is an Apache configuration file that is used to configure the server and manage URLs.
 
 
-## Как начать работу с проектом
+## How to get started with the project
 
-Чтобы начать работу с проектом, вам потребуется следующее:
+To get started with the project, you will need the following:
 
-1. Установите OpenServer или другой инструмент для запуска локального сервера.
-1. Создайте базу данных и импортируйте SQL-скрипты из папки /sql для создания таблиц.
-2. Замените содержимое файла db_config.php на актуальные данные вашей базы данных.
-3. Откройте файл .htaccess и настройте правила перезаписи URL в соответствии с вашими потребностями.
-4. Запустите проект на локальном сервере.
+1. Install OpenServer or another tool to start a local server.
+1. Create a database and import SQL scripts from the /sql folder to create tables.
+2. Replace the contents of the db_config.php file with the actual data of your database.
+3. Open the .htaccess file and customize the URL rewrite rules to suit your needs.
+4. Run the project on your local server.
 
-## Поддержка и обратная связь
+## Support and Feedback
 
-Если у вас возникнут вопросы или предложения по улучшению проекта, пожалуйста, свяжитесь со мной через GitHub. Я буду рад услышать ваше мнение и помочь вам в освоении проекта.
+If you have any questions or suggestions for improving the project, please contact me via GitHub. I will be glad to hear your opinion and help you in mastering the project.
 
-Спасибо за интерес к проекту Guardians of Dreams Shop!
+Thank you for your interest in the Guardians of Dreams Shop project!
