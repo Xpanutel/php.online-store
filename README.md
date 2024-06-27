@@ -1,4 +1,11 @@
-Добро пожаловать в проект Guardians of Dreams Shop! Этот проект представляет собой веб-приложение, построенное на стеке технологий PHP, MySQL, CSS, HTML и JavaScript.
+Добро пожаловать в проект Guardians of Dreams Shop! 
+
+### Стек технологий
+https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white
+https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
+https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
+https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
+https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white
 
 ### Требования к проекту
 Проект включает в себя следующие компоненты:
@@ -63,8 +70,8 @@
 
 ```
 |-- cart.php
-Это страница корзины покупок, где пользователь может просматривать выбранные товары и оформлять заказ.
 ```
+Это страница корзины покупок, где пользователь может просматривать выбранные товары и оформлять заказ.
 
 ```
 |-- login.php
