@@ -38,6 +38,8 @@ if ($_SESSION['auth'] === false) { ?>
 	<body>
 		<?php include './components/header.php'; ?>
 		<div class="content">
+			<h1>Welcome to the account registration page!</h1>
+			<h1>Fill out the form below and click the "Sign up" button</h1>
 		  <form action="" method="post">
 		    <input type="text" name="login" placeholder="Your login"><br/>
 		    <input type="text" name="email" placeholder="Your email"><br/>

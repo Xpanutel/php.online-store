@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     session_regenerate_id(true);
     $_SESSION['auth'] = false;
 }
-$_SESSION['auth'] = false;
+
 if($_SESSION['auth'] === false) { ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -12,6 +12,7 @@ if($_SESSION['auth'] === false) { ?>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Guardians of Dreams Shop | Authorization</title>
+		<link rel="stylesheet" href="/css/styles.css">
 		<style>
 	  	html, body {
 	    	height: 100%;
@@ -35,7 +36,10 @@ if($_SESSION['auth'] === false) { ?>
 	  </style>
 	</head>
 	<body>
+		<?php include './components/header.php'; ?>
 		<div class="content">
+			<h1>Welcome to the authorization page!</h1>
+			<h1>Fill out the form below and click the "Sign in" button</h1>
 			<form action="" method="post">
 				<input type="text" name="login" placeholder="Your login or your email">
 				<input type="password" name="pass" placeholder="Your password">
@@ -43,6 +47,7 @@ if($_SESSION['auth'] === false) { ?>
 			  <input type="submit" value="Sign in">
 			</form>
 		</div>
+		<?php include './components/footer.php'; ?>
 	</body>
 	</html>
 	<?php include	'db_config.php';
