@@ -4,8 +4,35 @@ if (!isset($_SESSION)) {
     session_regenerate_id(true);
     $_SESSION['auth'] = false;
 }
+$error = '';
+if($_SESSION['auth'] === false) {
+	include	'db_config.php';
+	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$login = $_POST['login'];
+		$pass = $_POST['pass'];
 
-if($_SESSION['auth'] === false) { ?>
+		$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email = ?");
+   		$stmt->bind_param('ss', $login, $login);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+
+		if($row) {
+			if($pass == $row['password']) {
+				$_SESSION['login'] = $login;
+				$_SESSION['auth'] = true;
+				header('location: profile.php');
+				$stmt->close();
+				$link->close();
+				exit;
+			} else {
+				$error = "Ошибка с паролем!";
+			}
+		} else {
+			$error = "Пользователь с такими данными не найден!";
+		}
+	} ?>
+
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -44,39 +71,15 @@ if($_SESSION['auth'] === false) { ?>
 				<input type="text" name="login" placeholder="Your login or your email">
 				<input type="password" name="pass" placeholder="Your password">
 				<input type="hidden" name="token" value="<?php echo md5(uniqid(rand(), true)); ?>">
+				<h3><?= $error ?></h3>
 			  <input type="submit" value="Sign in">
 			</form>
 		</div>
 		<?php include './components/footer.php'; ?>
 	</body>
 	</html>
-	<?php include	'db_config.php';
-	if($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$login = $_POST['login'];
-		$pass = $_POST['pass'];
 
-		$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email = ?");
-   	$stmt->bind_param('ss', $login, $login);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
-
-		if($row) {
-			if($pass == $row['password']) {
-				$_SESSION['login'] = $login;
-				$_SESSION['auth'] = true;
-				header('location: profile.php');
-				$stmt->close();
-				$link->close();
-				exit;
-			} else {
-				echo "Ошибка с паролем!";
-			}
-		} else {
-			echo "Пользователь с такими данными не найден!";
-		}
-	}
-} else {
+<?php } else {
 	header('location: profile.php');
 	exit;
 }

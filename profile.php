@@ -44,16 +44,16 @@ if($_SESSION['auth'] == true) {
 				<h1 class="profile_welcome__title">Welcome to the private office!</h1>
 				<h3 class="profile_user__data">Your login =  <?= $row['login'] ?></h3>
 				<h3 class="profile_user__data">Your email =  <?= $row['email'] ?></h3>
-			  <form action="" method="post">
-			    <input type="submit" name="clearAut" value='Log out' class="profile_logout__button">
-			  </form>
+				<form action="" method="post">
+					<input type="submit" name="clearAut" value='Log out' class="profile_logout__button">
+				</form>
 			</div>
 		<?php } else { ?>
 			<div class="content">
 				<h1 class="profile_welcome__title">Weclome back, admin!</h1>
 				<form action="" method="post">
-			    	<input type="submit" name="clearAut" value='Log out' class="profile_logout__button">
-			  	</form>
+				    <input type="submit" name="clearAut" value='Log out' class="profile_logout__button">
+				</form>
 			</div>
 		<?php }	?>
 		<?php include './components/footer.php'; ?>

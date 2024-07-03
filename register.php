@@ -1,11 +1,55 @@
 <?php
 session_start();
+
 if (!isset($_SESSION)) {
     session_regenerate_id(true);
     $_SESSION['auth'] = false;
 }
 
-if ($_SESSION['auth'] === false) { ?>
+$error = '';
+
+if ($_SESSION['auth'] === false) {
+	include 'db_config.php';
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$login = $_POST['login'] ?? '';
+		$email = $_POST['email'] ?? '';
+		$pass = $_POST['pass'] ?? '';
+		$sucpass = $_POST['sucpass'] ?? '';
+
+		if (empty($login) || empty($email) || empty($pass) || empty($sucpass)) {
+			$error = "Необходимо заполнить все поля!";
+			return;
+		}
+
+		if($pass !== $sucpass) {
+			$error = "Введенные вами пароли не совпадают!";
+			return;
+		}
+
+		$stmt = $link->prepare("SELECT COUNT( * ) AS user_count FROM users WHERE login = ? or email = ?");
+		$stmt->bind_param('ss', $login, $email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
+
+		if ($row['user_count'] > 0) {
+			$error = "Пользователь с таким логином или почтой уже существует!";
+		} else {
+			$stmt = $link->prepare("INSERT INTO users (login, email, password) VALUES (?, ?, ?)");
+			$stmt->bind_param('sss', $login, $email, $pass);
+
+			if($stmt->execute()) {
+				$_SESSION['auth'] = true;
+				$_SESSION['login'] = $login;
+				$stmt->close();
+				$link->close();
+				header('location: profile.php');
+			} else {
+				$error = "Произошла ошибка при регистрации";
+			}
+		}
+	} ?>
+
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -45,56 +89,15 @@ if ($_SESSION['auth'] === false) { ?>
 		    <input type="text" name="email" placeholder="Your email"><br/>
 		    <input type="password" name="pass" placeholder="Your password"><br/>
 		    <input type="password" name="sucpass" placeholder="Password verification"><br/>
-		    <input type="hidden" name="token" value="<?php echo md5(uniqid(rand(), true)); ?>">
+		    <h3><?= $error ?></h3>
 		    <input type="submit" value="Sign up">
 		  </form>
 		 </div>
 	  <?php include './components/footer.php'; ?>
 	</body>
 	</html>
-	<?php
-	include 'db_config.php';
-	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$login = $_POST['login'] ?? '';
-		$email = $_POST['email'] ?? '';
-		$pass = $_POST['pass'] ?? '';
-		$sucpass = $_POST['sucpass'] ?? '';
 
-		if (empty($login) || empty($email) || empty($pass) || empty($sucpass)) {
-			echo "Необходимо заполнить все поля!";
-			return;
-		}
-
-		if($pass !== $sucpass) {
-			echo "Введенные вами пароли не совпадают!";
-			return;
-		}
-
-		$stmt = $link->prepare("SELECT COUNT( * ) AS user_count FROM users WHERE login = ?");
-		$stmt->bind_param('s', $login);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
-
-		if ($row['user_count'] > 0) {
-			echo "Пользователь с таким логином уже существует!";
-		} else {
-			$stmt = $link->prepare("INSERT INTO users (login, email, password) VALUES (?, ?, ?)");
-			$stmt->bind_param('sss', $login, $email, $pass);
-
-			if($stmt->execute()) {
-				echo "Поздравляем с успешной регистрацией!";
-				header('location: profile.php');
-				$_SESSION['auth'] = true;
-				$_SESSION['login'] = $login;
-				$stmt->close();
-				$link->close();
-			} else {
-				echo "Произошла ошибка при регистрации";
-			}
-		}
-	}
-} else {
+<?php } else {
 	header('location: profile.php');
 	exit;
 }
