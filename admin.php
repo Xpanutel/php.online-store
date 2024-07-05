@@ -70,9 +70,9 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === 'admin') { ?>
 
 	<body>
 		<?php include './components/header.php'; ?>
-		<?php include './php/addProduct.php'; ?>
+		<!-- <?php include './php/addProduct.php'; ?> -->
 		<div class="content">
-			<form action="/php/addProduct.php" method="post" enctype="multipart/form-data">
+			<form action="./php/addProduct.php" method="post" enctype="multipart/form-data">
 				<input class="admin_name" type="text" placeholder="название товара" name="name">
 				<textarea class="admin_pame" type="text" placeholder="описание товара" name="pame"></textarea>
 				<input class="admin_image" type="file" name="image" name="image" accept="image/ * ">

@@ -1,13 +1,5 @@
-<?php
-session_start();
-if($_SESSION['auth'] == true) {
-	include 'db_config.php';
-	$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email= ?");
-	$stmt->bind_param('ss', $_SESSION['login'], $_SESSION['login']);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$row = $result->fetch_assoc();
-	?>
+<?php session_start();
+if($_SESSION['auth'] === true) { ?>
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -40,6 +32,14 @@ if($_SESSION['auth'] == true) {
 	<body>
 		<?php include './components/header.php'; ?>
 		<?php if($_SESSION['login'] !== 'admin') { ?>
+			<?php
+				include 'db_config.php';
+				$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email= ?");
+				$stmt->bind_param('ss', $_SESSION['login'], $_SESSION['login']);
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$row = $result->fetch_assoc();
+			?>
 			<div class="content">
 				<h1 class="profile_welcome__title">Welcome to the private office!</h1>
 				<h3 class="profile_user__data">Your login =  <?= $row['login'] ?></h3>
@@ -67,6 +67,5 @@ if($_SESSION['auth'] == true) {
 	}
 } else {
 	header('location: login.php');
-}
-?>
-
+	exit;
+}?>

@@ -1,6 +1,4 @@
-<?php 
-session_start(); 
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,6 +76,7 @@ session_start();
         // циклом проходим по всем элементам и выводим каждый товар
       for ($i = 1; $row = $result->fetch_assoc(); $i++) { ?>
         <div class="product">
+          <!-- а вот тут мы выводим картинку из папки temp по названию, которое берем из бд -->
           <?php echo '<img src="temp/'.$row['image'].'" alt="'.$row['name'].'" class="product_image">' ?>
           <h1 class="product_title"> <?php echo $row['name']; ?> </h1>
           <h3 class="product_pame"> <?php echo $row['pame']; ?> </h3>

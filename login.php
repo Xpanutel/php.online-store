@@ -1,38 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION)) {
+if (!isset($_SESSION['auth'])) {
     session_regenerate_id(true);
     $_SESSION['auth'] = false;
 }
-$error = '';
-if($_SESSION['auth'] === false) {
-	include	'db_config.php';
-	if($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$login = $_POST['login'];
-		$pass = $_POST['pass'];
 
-		$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email = ?");
-   		$stmt->bind_param('ss', $login, $login);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
-
-		if($row) {
-			if($pass == $row['password']) {
-				$_SESSION['login'] = $login;
-				$_SESSION['auth'] = true;
-				header('location: profile.php');
-				$stmt->close();
-				$link->close();
-				exit;
-			} else {
-				$error = "Ошибка с паролем!";
-			}
-		} else {
-			$error = "Пользователь с такими данными не найден!";
-		}
-	} ?>
-
+if ($_SESSION['auth'] === false) { ?>
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -64,6 +37,7 @@ if($_SESSION['auth'] === false) {
 	</head>
 	<body>
 		<?php include './components/header.php'; ?>
+		<?php include './php/loginUser.php'; ?>
 		<div class="content">
 			<h1>Welcome to the authorization page!</h1>
 			<h1>Fill out the form below and click the "Sign in" button</h1>
@@ -80,7 +54,7 @@ if($_SESSION['auth'] === false) {
 	</html>
 
 <?php } else {
-	header('location: profile.php');
-	exit;
+    header('Location: profile.php');
+    exit;
 }
 ?>
