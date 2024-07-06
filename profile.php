@@ -6,28 +6,8 @@ if($_SESSION['auth'] === true) { ?>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Guardians of Dreams Shop | Profile</title>
-		<link rel="stylesheet" href="/css/styles.css">
-		<style>
-	  	html, body {
-	    	height: 100%;
-	    	margin: 0;
-	    	padding: 0;
-	  	}
-
-	  	body {
-	    	display: flex;
-	    	flex-direction: column;
-	  	}
-
-	  	.content {
-	    	flex: 1;
-	    	padding: 20px;
-	    	background: #f7f7f7;
-	    	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	    	border-radius: 5px;
-	    	text-align: center;
-	  	}
-	  </style>
+		<link rel="stylesheet" href="./css/styles.css">
+		<link rel="stylesheet" href="./css/container.css">
 	</head>
 	<body>
 		<?php include './components/header.php'; ?>
