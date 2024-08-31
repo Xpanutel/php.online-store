@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['role'] = 'admin';
     $stmt->close();
     $link->close();
-		header('Location: ../profile.php');
+		header('Location: ../public/profile.php');
     exit; 
   } else {
       $error = "Неверный логин или пароль!";

@@ -49,7 +49,7 @@
    <div class="content">
     <h1>Welcome to our online store!</h1>
       <?php
-      include 'db_config.php';
+      include './config/db_config.php';
       // кидаем запрос для получения всех товаров
       $stmt = $link->prepare("SELECT * FROM product");
       $stmt->execute();

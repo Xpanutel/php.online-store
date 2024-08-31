@@ -6,14 +6,14 @@ if($_SESSION['auth'] === true) { ?>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Guardians of Dreams Shop | Profile</title>
-		<link rel="stylesheet" href="./css/styles.css">
-		<link rel="stylesheet" href="./css/container.css">
+		<link rel="stylesheet" href="../css/styles.css">
+		<link rel="stylesheet" href="../css/container.css">
 	</head>
 	<body>
 		<?php include '../components/header.php'; ?>
 		<?php if($_SESSION['login'] !== 'admin') { ?>
 			<?php
-				include 'db_config.php';
+				include '../config/db_config.php';
 				$stmt = $link->prepare("SELECT * FROM users WHERE login = ? OR email= ?");
 				$stmt->bind_param('ss', $_SESSION['login'], $_SESSION['login']);
 				$stmt->execute();
@@ -36,7 +36,7 @@ if($_SESSION['auth'] === true) { ?>
 				</form>
 			</div>
 		<?php }	?>
-		<?php include './components/footer.php'; ?>
+		<?php include '../components/footer.php'; ?>
 	</body>
 	</html>
 <?php

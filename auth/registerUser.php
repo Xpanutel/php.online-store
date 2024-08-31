@@ -55,7 +55,7 @@ class UserRegistration {
                 $_SESSION['login'] = $this->login;
                 $stmt->close();
                 $this->link->close();
-                header('Location: ../profile.php');
+                header('Location: ../public/profile.php');
                 exit;
             } else {
                 throw new Exception("Произошла ошибка при регистрации");

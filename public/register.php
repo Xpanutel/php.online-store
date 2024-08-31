@@ -15,15 +15,15 @@ if ($_SESSION['auth'] === false) { ?>
 	  <meta charset="UTF-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <title>Guardians of Dreams Shop | Registration</title>
-	  <link rel="stylesheet" type="text/css" href="/css/styles.css">
-	  <link rel="stylesheet" href="./css/container.css">
+	  <link rel="stylesheet" type="text/css" href="../css/styles.css">
+	  <link rel="stylesheet" href="../css/container.css">
 	</head>
 	<body>
-		<?php include './components/header.php'; ?>
+		<?php include '../components/header.php'; ?>
 		<div class="content">
 			<h1>Welcome to the account registration page!</h1>
 			<h1>Fill out the form below and click the "Sign up" button</h1>
-		  <form action="./php/registerUser.php" method="post">
+		  <form action="../php/registerUser.php" method="post">
 		    <input type="text" name="login" placeholder="Your login"><br/>
 		    <input type="text" name="email" placeholder="Your email"><br/>
 		    <input type="password" name="pass" placeholder="Your password"><br/>
@@ -32,7 +32,7 @@ if ($_SESSION['auth'] === false) { ?>
 		    <input type="submit" value="Sign up">
 		  </form>
 		 </div>
-	  <?php include './components/footer.php'; ?>
+	  <?php include '../components/footer.php'; ?>
 	</body>
 	</html>
 
