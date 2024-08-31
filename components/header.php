@@ -14,7 +14,7 @@
 				<li><a href="/"><img src="/img/main-shop.png" alt="главная" style="width: 35px; margin: 0px 15px;"></a></li>
 				<li><a href="profile.php"><img src="/img/personal-profile.png" alt="личный кабинет" style="width: 35px; margin: 0px 15px;"></a></li>
 				<?php if(isset($_SESSION['login']) && $_SESSION['login'] === 'admin') { ?>
-					<li><a href="admin.php"><img src="/img/management.png" alt="управление" style="width: 35px; margin: 0px 15px;"></a></li>
+					<li><a href="admin_panel.php"><img src="/img/management.png" alt="управление" style="width: 35px; margin: 0px 15px;"></a></li>
 				<?php } ?>
 			</ul>
 		</nav>

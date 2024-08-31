@@ -10,7 +10,7 @@ if($_SESSION['auth'] === true) { ?>
 		<link rel="stylesheet" href="./css/container.css">
 	</head>
 	<body>
-		<?php include './components/header.php'; ?>
+		<?php include '../components/header.php'; ?>
 		<?php if($_SESSION['login'] !== 'admin') { ?>
 			<?php
 				include 'db_config.php';
