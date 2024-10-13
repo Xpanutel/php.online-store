@@ -6,4 +6,3 @@
 
 	// $link = new mysqli_connect($host, $user, $pass, $name);
 	$link = new mysqli($host, $user, $pass, $name);
-?>
