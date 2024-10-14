@@ -1,7 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/app/models/User.php'; 
 
-
 class UserController {
     private $userModel;
 

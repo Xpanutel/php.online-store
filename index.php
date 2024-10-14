@@ -6,7 +6,7 @@ require_once 'config/database.php';
 $routes = [
     '#^/register/?$#' => 'app/controllers/UserController.php',
     '#^/login/?$#' => 'app/controllers/UserController.php',
-    // ... другие маршруты
+    '#^/admin/?$#' => 'app/controllers/AdminController.php', 
 ];
 
 // Получаем URI без GET параметров
@@ -40,6 +40,8 @@ if ($matchedRoute) {
         $controller->register();
     } elseif (method_exists($controller, 'login') && $requestUri === '/login') {
         $controller->login();
+    } elseif (method_exists($controller, 'admin') && $requestUri === '/admin') {
+        $controller->checkAdminAccess();
     } else {
         header('HTTP/1.0 404 Not Found');
         echo "Страница не найдена";

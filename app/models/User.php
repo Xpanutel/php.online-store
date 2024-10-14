@@ -42,4 +42,29 @@ class User {
         
         return false; 
     }
+
+    public function getUserByLogin($userlogin) {
+        $stmt = $this->db->prepare('SELECT * FROM users WHERE login = ?');
+        
+        if (!$stmt) {
+            error_log("Ошибка подготовки запроса: " . $this->db->error); 
+            return false; 
+        }
+
+        try {
+            $stmt->bind_param('s', $userlogin);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            
+            if($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                return $row;
+            } 
+        } finally {
+            $stmt->close();  
+        }
+
+        return false; 
+    }
 }
