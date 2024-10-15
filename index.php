@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'config/database.php'; 
 
 // Массив маршрутов с регулярными выражениями
@@ -41,15 +41,13 @@ if ($matchedRoute) {
     } elseif (method_exists($controller, 'login') && $requestUri === '/login') {
         $controller->login();
     } elseif (method_exists($controller, 'admin') && $requestUri === '/admin') {
-        $controller->checkAdminAccess();
+        $controller->index();
     } else {
         header('HTTP/1.0 404 Not Found');
         echo "Страница не найдена";
     }
-
 } else {
     header('HTTP/1.0 404 Not Found');
     echo "Страница не найдена"; 
 }
-
 ?>

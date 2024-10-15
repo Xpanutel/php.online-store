@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/app/models/User.php'; 
 
 class UserController {
@@ -30,9 +31,8 @@ class UserController {
             $userpassword = $_POST['password'];
 
             if ($this->userModel->UserLogin($userlogin, $userlogin, $userpassword)) { 
-                echo "Авторизация успешна!";
+                $_SESSION['userlogin'] = $userlogin;
                 header('Location: /profile'); 
-                exit;
             } else {
                 echo "Неверный логин или пароль."; 
             }
