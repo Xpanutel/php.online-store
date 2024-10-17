@@ -9,56 +9,66 @@ class AdminController {
     public function __construct($db) {
         $this->adminModel = new Admin($db);
         $this->userModel = new User($db);
-        $this->checkAdminAccess();
     }
 
-    public function checkAdminAccess() {
-        session_start();
-        // проверяем авторизован ли пользователь
+    private function checkAdminAccess() {
         if(!isset($_SESSION['userlogin'])) {
-            header('location: /login');
+            header('Location: /login'); 
             exit;
         }
-
         $user = $this->userModel->getUserByLogin($_SESSION['userlogin']);
-
         if($user['role'] !== 'admin') {
-            header('location: /profile');
+            header('Location: /profile'); 
             exit;
         }
     }
 
     public function index() {
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/app/views/admin.php'; 
+        $this->checkAdminAccess();
+        $admins = $this->adminModel->getAllAdmins();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/app/views/showAdmin.php'; 
+    }
+
+    public function addAdminForm() {
+        $this->checkAdminAccess();
+        $users = $this->userModel->getAllUsers();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/app/views/addAdmin.php'; 
     }
 
     public function addAdmin() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userLogin = $_POST['login']; 
-            if ($this->adminModel->addAdmin($userLogin)) {
-                header('Location: /admin'); 
+        $this->checkAdminAccess();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+            $userLogin = $_POST['login'];
+            if ($this->adminModel->updateAdminRole($userLogin)) {
+                $_SESSION['message'] = "Пользователь $userLogin успешно стал администратором!";
+                if (!$stmt->execute()) {
+                    die("Ошибка выполнения запроса: " . mysqli_error($this->db)); // Вывод ошибки и остановка скрипта
+                }
             } else {
-                // Обработка ошибки добавления, например, вывести сообщение
-                echo "Ошибка добавления администратора";
+                $_SESSION['error'] = "Ошибка! Возможно, пользователя с таким логином не существует.";
             }
-        } else {
-            // Если не POST запрос, перенаправляем на главную страницу админа
-            header('Location: /admin'); 
         }
+        header('Location: /admin');
+        exit;
+    }
+
+    public function deleteAdminForm() {
+        $this->checkAdminAccess();
+        $admins = $this->adminModel->getAllAdmins();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/app/views/deleteAdmin.php'; 
     }
 
     public function deleteAdmin() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userLogin = $_POST['login']; 
+        $this->checkAdminAccess();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+            $userLogin = $_POST['login'];
             if ($this->adminModel->deleteAdmin($userLogin)) {
-                header('Location: /admin'); 
+                $_SESSION['message'] = "Пользователь $userLogin больше не администратор!";
             } else {
-                // Обработка ошибки удаления
-                echo "Ошибка удаления администратора"; 
+                $_SESSION['error'] = "Ошибка при удалении прав администратора!"; 
             }
-        } else {
-            header('Location: /admin'); 
         }
+        header('Location: /admin');
+        exit;
     }
-}
-
+} 

@@ -1,5 +1,4 @@
 <?php
-session_start();
 class User {
     private $db;
 
@@ -65,5 +64,25 @@ class User {
         }
 
         return false; 
+    }
+
+    public function getAllUsers() {
+        $stmt = $this->db->prepare("SELECT login FROM users WHERE role = 'user'");
+        $stmt->execute();
+        if (!$stmt->execute()) {
+            // Обработка ошибки, например, запись в лог
+            die('Ошибка выполнения запроса: ' . $stmt->error);
+        }
+        $result = $stmt->get_result();
+        $users = []; 
+        while ($row = $result->fetch_assoc()) {
+            // Создаем массив для каждого администратора:
+            $user = [
+                'login' => $row['login']
+            ]; 
+            $users[] = $user; // Добавляем массив $admin в $admins
+        }
+
+        return $users; 
     }
 }
