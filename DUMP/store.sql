@@ -11,8 +11,8 @@ create table users (
 
 INSERT INTO users (login, email, password, role) VALUES 
 ('admin', 'admin@example.com', 'admin123', 'admin'),
-('ivanov', 'ivan@mail.ru', 'ivan123'),
-('petrova', 'anna@yandex.ru', 'anna123'); 
+('ivanov', 'ivan@mail.ru', 'ivan123', 'user'),
+('petrova', 'anna@yandex.ru', 'anna123', 'user'); 
 
 create table products (
 	id int(15) auto_increment primary key not null,
