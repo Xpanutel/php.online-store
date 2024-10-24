@@ -7,10 +7,11 @@ $routes = [
     '#^/register/?$#' => ['controller' => 'UserController', 'action' => 'register'],
     '#^/login/?$#' => ['controller' => 'UserController', 'action' => 'login'],
     '#^/admin/?$#' => ['controller' => 'AdminController', 'action' => 'index'],
-    '#^/admin/add/?$#' => ['controller' => 'AdminController', 'action' => 'addAdminForm'],
-    '#^/admin/add$#' => ['controller' => 'AdminController', 'action' => 'addAdmin'], 
-    '#^/admin/delete/?$#' => ['controller' => 'AdminController', 'action' => 'deleteAdminForm'],
-    '#^/admin/delete$#' => ['controller' => 'AdminController', 'action' => 'deleteAdmin'], 
+    '#^/admin/add/?$#' => ['controller' => 'AdminController', 'action' => 'addAdmin'],
+    '#^/products/?$#' => ['controller' => 'ProductController', 'action' => 'index'], 
+    '#^/product/add/?$#' => ['controller' => 'ProductController', 'action' => 'store'], 
+    '#^/product/edit/(?P<id>\d+)$#' => ['controller' => 'ProductController', 'action' => 'update'], 
+    '#^/product/delete/(?P<id>\d+)$#' => ['controller' => 'ProductController', 'action' => 'delete'], 
 ];
 
 ini_set('display_errors', 1);
@@ -38,18 +39,27 @@ if ($matchedRoute) {
         $controller = new $controllerName($link); 
 
         if (method_exists($controller, $actionName)) {
-            $controller->$actionName(); 
+            $params = [];
+            // $controller->$actionName(); 
+            if (preg_match($pattern, $requestUri, $matches)) {
+                // Удаляем первый элемент массива (полное совпадение)
+                array_shift($matches);
+                $params = $matches; 
+            }
+    
+            // Вызываем метод контроллера с параметрами
+            call_user_func_array([$controller, $actionName], $params);
         } else {
-            header('HTTP/1.0 404 Not Found');
+            http_response_code(404);
             echo "Метод не найден";
         }
     } else {
-        header('HTTP/1.0 404 Not Found');
+        http_response_code(404);
         echo "Контроллер не найден";
     }
 
 } else {
-    header('HTTP/1.0 404 Not Found');
+    http_response_code(404);
     echo "Страница не найдена"; 
 }
 ?>

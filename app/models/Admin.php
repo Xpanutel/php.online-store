@@ -11,7 +11,6 @@ class Admin {
         $stmt = $this->db->prepare("SELECT id, login FROM users WHERE role = 'admin'");
         $stmt->execute();
         if (!$stmt->execute()) {
-            // Обработка ошибки, например, запись в лог
             die('Ошибка выполнения запроса: ' . $stmt->error);
         }
         $result = $stmt->get_result();
@@ -28,19 +27,25 @@ class Admin {
     }
 
     public function updateAdminRole($userLogin) {
-        // Проверка на существование пользователя перед изменением роли
-        if ($this->getUserByLogin($userLogin)) {
-            $stmt = $this->db->prepare("UPDATE users SET role = 'admin' WHERE login = ?");
-            $stmt->bind_param('s', $userLogin);
-            return $stmt->execute(); 
-        } else {
-            // Обработка случая, когда пользователь не найден
-            return false; 
+        if (!is_string($userLogin)) {
+            throw new InvalidArgumentException("Логин пользователя должен быть строкой."); 
         }
+        $stmt = $this->db->prepare("UPDATE users SET role = 'admin' WHERE login = ?");
+    
+        if (!$stmt) {
+            throw new \Exception("Ошибка подготовки запроса: " . $this->db->error); 
+        }
+        $stmt->bind_param("s", $userLogin);
+    
+        if (!$stmt->execute()) {
+            throw new \Exception("Ошибка выполнения запроса: " . $stmt->error);
+        }
+        $stmt->close(); 
+        return true; 
     }
     
+    
     public function deleteAdmin($userLogin) {
-        // Аналогично addAdmin, можно добавить проверку на существование пользователя
         $stmt = $this->db->prepare("UPDATE users SET role = 'user' WHERE users.login = ?");
         $stmt->bind_param('s', $userLogin);
         return $stmt->execute(); 
@@ -51,10 +56,9 @@ class Admin {
         $stmt->bind_param('s', $userLogin);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc(); // Возвращаем ассоциативный массив с данными админа
+        return $result->fetch_assoc(); 
     }
 
-    // Дополнительный метод для получения пользователя по логину
     private function getUserByLogin($userLogin) {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE login = ?");
         $stmt->bind_param('s', $userLogin);

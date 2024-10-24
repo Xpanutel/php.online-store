@@ -3,8 +3,9 @@
 <head>
   <title>Регистрация</title>
 </head>
-<body>
+<body>  
   <h2>Регистрация</h2>
+
   <form method="POST" action=""> 
     <label for="login">Логин:</label>
     <input type="text" id="login" name="login" required><br>
@@ -17,5 +18,7 @@
 
     <input type="submit" value="Зарегистрироваться">
   </form>
+
 </body>
 </html>
+
